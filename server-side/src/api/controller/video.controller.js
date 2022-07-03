@@ -22,4 +22,13 @@ VideoController.getAll = async (req, res) => {
   res.status(200).json({ videos });
 };
 
+VideoController.getVideosByUserId = async (req, res) => {
+  const videos = await videoService
+    .getVideosByUserId(req.body.userId)
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
+  res.status(200).json({ videos });
+};
+
 module.exports = VideoController;
