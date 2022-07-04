@@ -1,6 +1,6 @@
 <form [formGroup]="loginForm" (ngSubmit)="onLogin()" novalidate>
   <div
-    class="w-full h-full flex flex-col items-center justify-items-center justify-center"
+    class="w-full h-96 flex flex-col items-center justify-items-center justify-center m-auto"
   >
     <h1 class="mb-5 pb-3 border-b text-3xl">Login</h1>
     <div class="w-80 relative mb-5">
@@ -36,7 +36,9 @@
         <div *ngIf="password.errors?.['required']">Password is required.</div>
       </div>
     </div>
-
+    <div *ngIf="errorMsg" class="text-red-500 italic text-sm mb-2">
+      <div>{{errorMsg}}</div>
+    </div>
     <button
       type="submit"
       class="py-2 px-3 bg-cyan-500 text-white text-sm font-semibold rounded-md shadow-lg shadow-cyan-500/50 focus:outline-none"

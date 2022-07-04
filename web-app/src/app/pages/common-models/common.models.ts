@@ -13,6 +13,13 @@ export interface VideoItem {
     id: number;
     fullName: string;
   };
+  Votes: [
+    {
+      id: number;
+      type: string;
+      userId: number;
+    }
+  ];
 }
 
 export interface Menu {

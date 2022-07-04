@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/shares/api.service';
 import { BaseBackendService } from 'src/app/shares/base-backend.service';
-import { Video } from '../common-models/common.models';
+import { RegisterRequest } from './model/register.model';
 
 @Injectable()
-export class DashboardService extends BaseBackendService {
+export class RegisterService extends BaseBackendService {
   constructor(apiService: ApiService) {
     super(apiService);
   }
 
-  getVideoSharing() {
-    return this.get<Video>('/video/getAll');
-  }
-
-  getVideoShared() {
-    return this.get<Video>(`/video/getVideoShared`);
+  register(request: RegisterRequest) {
+    return this.post<RegisterRequest, any>('/user/register', request);
   }
 }

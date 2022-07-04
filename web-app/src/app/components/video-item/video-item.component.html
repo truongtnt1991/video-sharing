@@ -14,12 +14,22 @@
     <div class="mt-2">Share by: {{ video.User.fullName }}</div>
     <div class="flex">
       <div class="flex items-center gap-1 mr-5">
-        <span class="material-symbols-outlined"> thumb_up </span
-        ><span>33k</span>
+        <span
+          class="material-symbols-outlined"
+          [ngClass]="{ 'cursor-pointer': isLogin, 'text-blue-600': isLike() }"
+          (click)="onLike(video.id)"
+        >
+          thumb_up </span
+        ><span>{{ totalLike() }}</span>
       </div>
       <div class="flex items-center gap-1">
-        <span class="material-symbols-outlined"> thumb_down </span
-        ><span>33k</span>
+        <span
+          class="material-symbols-outlined"
+          [ngClass]="{ 'cursor-pointer': isLogin, 'text-blue-600': isDislike() }"
+          (click)="onDislike(video.id)"
+        >
+          thumb_down </span
+        ><span>{{ totalDislike() }}</span>
       </div>
     </div>
     <div class="description h-24 overflow-hidden">

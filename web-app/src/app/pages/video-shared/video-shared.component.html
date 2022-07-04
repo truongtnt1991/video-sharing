@@ -1,0 +1,19 @@
+<h1 class="mb-5 pb-3 border-b text-3xl">Shared Videos</h1>
+<div class="w-full">
+  <div class="w-80 relative mb-5">
+    <input
+      class="border rounded w-full h-9 p-2 bg-white text-sm italic active:outline-none focus:outline-none"
+      type="text"
+      #keywordsSearchBar
+      placeholder="Search in the list..."
+    />
+    <span
+      class="material-symbols-outlined absolute right-0 top-1.5 border-l px-1.5"
+    >
+      search
+    </span>
+  </div>
+  <div *ngFor="let video of videosFilter">
+    <app-video-item [video]="video"></app-video-item>
+  </div>
+</div>

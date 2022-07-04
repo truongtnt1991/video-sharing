@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { tokenKey } from 'src/app/auth/auth.constant';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/auth/user.model';
 import { Menu } from 'src/app/pages/common-models/common.models';
 
 @Component({
@@ -12,14 +15,23 @@ export class MenuComponent implements OnInit {
   menus: Menu[] = [];
   accountMenus: Menu[] = [];
   isLogin = !!localStorage.getItem(tokenKey);
-  constructor() {}
+  userInfo!: User;
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    this.getUserInfo();
     this.createMenu();
   }
 
   toggleMenu() {
     this.open = !this.open;
+  }
+
+  getUserInfo() {
+    const info = this.authService.getUserInfo();
+    if (info) {
+      this.userInfo = info;
+    }
   }
 
   createMenu() {
@@ -42,26 +54,32 @@ export class MenuComponent implements OnInit {
         imgSrc: 'assets/images/register.png',
         icon: 'group',
       },
-      {
+    ];
+
+    if (this.isLogin) {
+      this.menus.push({
         title: 'Share video',
         url: 'video-sharing',
         imgSrc: 'assets/images/sharing.ico',
         icon: 'share',
-      },
-    ];
+      });
+      this.menus.push({
+        title: 'Shared video',
+        url: 'video-shared',
+        imgSrc: 'assets/images/sharing.ico',
+        icon: 'send',
+      });
 
-    if (this.isLogin) {
-      this.accountMenus = [
-        {
-          title: 'Shared video',
-          url: 'video-sharing',
-          imgSrc: 'assets/images/sharing.ico',
-          icon: 'send',
-        },
-      ];
       this.menus = this.menus.filter(
         (x) => !['login', 'register'].includes(x.url)
       );
     }
+  }
+
+  logout() {
+    localStorage.removeItem(tokenKey);
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+    });
   }
 }

@@ -1,1 +1,69 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="onRegister()" novalidate>
+  <div
+    class="w-full h-96 flex flex-col items-center justify-items-center justify-center m-auto"
+  >
+    <h1 class="mb-5 pb-3 border-b text-3xl">Sign up</h1>
+    <div class="w-80 relative mb-5">
+      <input
+        class="border rounded w-full h-9 p-2 bg-white text-sm italic active:outline-none focus:outline-none"
+        type="text"
+        id="fullName"
+        placeholder="Full name"
+        formControlName="fullName"
+      />
+      <div
+        *ngIf="
+          fullName && fullName.invalid && (fullName.dirty || fullName.touched)
+        "
+        class="text-red-500 italic text-sm"
+      >
+        <div *ngIf="fullName.errors?.['required']">FullName is required.</div>
+      </div>
+    </div>
+    <div class="w-80 relative mb-5">
+      <input
+        class="border rounded w-full h-9 p-2 bg-white text-sm italic active:outline-none focus:outline-none"
+        type="text"
+        id="userName"
+        placeholder="UserName"
+        formControlName="userName"
+      />
+      <div
+        *ngIf="
+          userName && userName.invalid && (userName.dirty || userName.touched)
+        "
+        class="text-red-500 italic text-sm"
+      >
+        <div *ngIf="userName.errors?.['required']">UserName is required.</div>
+      </div>
+    </div>
+    <div class="w-80 relative mb-5">
+      <input
+        class="border rounded w-full h-9 p-2 bg-white text-sm italic active:outline-none focus:outline-none"
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <div
+        *ngIf="
+          password && password.invalid && (password.dirty || password.touched)
+        "
+        class="text-red-500 italic text-sm"
+      >
+        <div *ngIf="password.errors?.['required']">Password is required.</div>
+      </div>
+    </div>
+    <div *ngIf="errorMsg" class="text-red-500 italic text-sm mb-2">
+      <div>{{ errorMsg }}</div>
+    </div>
+    <div *ngIf="successMsg" class="text-green-500 italic text-sm mb-2">
+      <div>{{ successMsg }}</div>
+    </div>
+    <button
+      type="submit"
+      class="py-2 px-3 bg-cyan-500 text-white text-sm font-semibold rounded-md shadow-lg shadow-cyan-500/50 focus:outline-none"
+    >
+      Sign up
+    </button>
+  </div>
+</form>

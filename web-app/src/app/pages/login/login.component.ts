@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { LoginService } from './login.service';
+import { Router } from '@angular/router';
+import { tokenKey } from 'src/app/auth/auth.constant';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,12 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  errorMsg!: string;
+  constructor(
+    private fb: FormBuilder,
+    private loginService: LoginService,
+    private router: Router
+  ) {
     super();
     this.loginForm = this.fb.group({
       userName: new FormControl('', Validators.required),
@@ -23,15 +30,32 @@ export class LoginComponent extends BaseComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem(tokenKey)) {
+      this.router.navigate(['/']).then(() => {
+        window.location.reload();
+      });
+    }
+  }
 
   onLogin() {
     if (this.loginForm.invalid) {
+      this.errorMsg = '';
+      this.loginForm.markAllAsTouched();
       return;
     }
-    this.subscribe(this.loginService.login(this.loginForm.value), (res) => {
-      console.log(res);
-    });
+    this.subscribe(
+      this.loginService.login(this.loginForm.value),
+      (res) => {
+        localStorage.setItem(tokenKey, res.token);
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
+      },
+      (error) => {
+        this.errorMsg = error.error.error;
+      }
+    );
   }
 
   get userName() {

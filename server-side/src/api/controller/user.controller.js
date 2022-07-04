@@ -20,7 +20,7 @@ UserController.register = async (req, res) => {
     });
 
   if (user) {
-    res.status(200).json({ message: 'Thanks for registering' });
+    res.status(200).json({ message: 'Thanks for registering! Back to login' });
   }
 };
 

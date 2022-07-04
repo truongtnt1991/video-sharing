@@ -36,19 +36,6 @@
     </li>
   </ul>
 
-  <ul class="pt-6">
-    <li
-      *ngFor="let menu of accountMenus"
-      class="flex rounded-md px-2 py-3 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4"
-    >
-      <span class="material-symbols-outlined">
-        {{ menu.icon }}
-      </span>
-      <span [ngClass]="{ hidden: !open }">
-        {{ menu.title }}
-      </span>
-    </li>
-  </ul>
   <div
     class="flex absolute bottom-0 left-0 p-2 items-center w-full"
     [ngClass]="{ 'justify-center': !open }"
@@ -58,12 +45,15 @@
     <span
       [ngClass]="{ hidden: !open }"
       class="m-2 text-white origin-left font-medium w-44 text-ellipsis whitespace-nowrap overflow-hidden"
-      >WillWillWillWillWillWillWillWillWillWill</span
+      >{{ userInfo.fullName }}</span
     >
-    <img
+
+    <span
+      class="material-symbols-outlined w-5 cursor-pointer absolute right-2 text-white"
       [ngClass]="{ hidden: !open }"
-      class="w-5 cursor-pointer absolute right-2"
-      src="assets/images/logout.png"
-    />
+      (click)="logout()"
+    >
+      logout
+    </span>
   </div>
 </div>
