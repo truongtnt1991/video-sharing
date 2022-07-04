@@ -36,8 +36,6 @@ UserController.login = async (req, res) => {
   });
   if (token) {
     res.status(200).json({ message: 'Login success', token });
-  } else {
-    res.status(400).json({ message: 'An error occurred' });
   }
 };
 module.exports = UserController;

@@ -1,41 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { Menu } from '../common-models/common.models';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { fromEvent, debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import { BaseComponent } from 'src/app/shares/base-component';
+import { accentsTidy } from 'src/app/shares/utils';
+import { VideoItem } from '../common-models/common.models';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
-  open = true;
-  menus: Menu[] = [];
-  constructor() {}
+export class DashboardComponent extends BaseComponent implements OnInit {
+  videos: VideoItem[] = [];
+  videosFilter: VideoItem[] = [];
+  @ViewChild('keywordsSearchBar') keywordsSearchBar?: ElementRef;
+
+  constructor(private dashboardService: DashboardService) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.createMenu();
+    this.getVideos();
   }
 
-  toggleMenu() {
-    this.open = !this.open;
+  ngAfterViewInit() {
+    if (this.keywordsSearchBar) {
+      this.subscribe(
+        fromEvent<any>(this.keywordsSearchBar.nativeElement, 'keyup').pipe(
+          debounceTime(200),
+          distinctUntilChanged(),
+          tap((event: any) => {
+            this.filterVideos();
+          })
+        )
+      );
+    }
   }
 
-  createMenu() {
-    this.menus = [
-      {
-        title: 'Login',
-        url: 'login',
-        imgSrc: 'assets/images/login.png',
-      },
-      {
-        title: 'Register',
-        url: 'Register',
-        imgSrc: 'assets/images/register.png',
-      },
-      {
-        title: 'Share video',
-        url: 'video-sharing',
-        imgSrc: 'assets/images/sharing.ico',
-      },
-    ];
+  getVideos() {
+    this.subscribe(this.dashboardService.getVideoSharing(), (res) => {
+      this.videos = [...res.videos];
+      this.videosFilter = [...res.videos];
+    });
+  }
+
+  private filterVideos() {
+    this.videosFilter = this.videos.filter((video: VideoItem) =>
+      accentsTidy(video.videoInfo.title.toLowerCase()).includes(
+        accentsTidy(
+          this.keywordsSearchBar?.nativeElement?.value?.toLowerCase() || ''
+        )
+      )
+    );
   }
 }

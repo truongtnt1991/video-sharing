@@ -6,6 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 require('./auth/passport');
+require('./models/index');
 
 const middlewares = require('./middlewares');
 const appRouter = require('./api/routes/app.route');

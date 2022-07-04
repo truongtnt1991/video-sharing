@@ -33,8 +33,8 @@ UserService.login = async (userName, password) => {
   if (!user) {
     throw 'Email or password does not match!';
   }
-
-  if (!user.validPassword(password)) {
+  const isMatching = await user.validPassword(password);
+  if (!isMatching) {
     throw 'Email or password does not match!';
   }
 

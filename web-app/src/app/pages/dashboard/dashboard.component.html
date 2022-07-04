@@ -4,6 +4,7 @@
     <input
       class="border rounded w-full h-9 p-2 bg-white text-sm italic active:outline-none focus:outline-none"
       type="text"
+      #keywordsSearchBar
       placeholder="Search in the list..."
     />
     <span
@@ -12,37 +13,7 @@
       search
     </span>
   </div>
-  <div class="flex gap-2.5 mb-3 shadow-md">
-    <iframe
-      width="350"
-      height="200"
-      src="https://www.youtube.com/embed/wEfaoAa99XY"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
-    <div class="flex flex-col">
-      <div class="title text-red-600 font-bold">
-        Responsive Side Navigation Bar in HTML CSS
-      </div>
-      <div class="mt-2">Share by: Will Smith</div>
-      <div class="flex">
-        <div class="flex items-center gap-1 mr-5">
-          <span class="material-symbols-outlined"> thumb_up </span
-          ><span>33k</span>
-        </div>
-        <div class="flex items-center gap-1">
-          <span class="material-symbols-outlined"> thumb_down </span
-          ><span>33k</span>
-        </div>
-      </div>
-      <div class="description">
-        In this video, I have created a Responsive Side Navigation Bar in HTML
-        CSS, and JavaScript. I hope you will like this Dashboard Sidebar Menu
-        Design. Feel free to download the source code of this Sidebar Menu from
-        the given link.
-      </div>
-    </div>
+  <div *ngFor="let video of videosFilter">
+    <app-video-item [video]="video"></app-video-item>
   </div>
 </div>

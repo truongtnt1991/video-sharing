@@ -1,1 +1,47 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()" novalidate>
+  <div
+    class="w-full h-full flex flex-col items-center justify-items-center justify-center"
+  >
+    <h1 class="mb-5 pb-3 border-b text-3xl">Login</h1>
+    <div class="w-80 relative mb-5">
+      <input
+        class="border rounded w-full h-9 p-2 bg-white text-sm italic active:outline-none focus:outline-none"
+        type="text"
+        id="userName"
+        placeholder="UserName"
+        formControlName="userName"
+      />
+      <div
+        *ngIf="
+          userName && userName.invalid && (userName.dirty || userName.touched)
+        "
+        class="text-red-500 italic text-sm"
+      >
+        <div *ngIf="userName.errors?.['required']">UserName is required.</div>
+      </div>
+    </div>
+    <div class="w-80 relative mb-5">
+      <input
+        class="border rounded w-full h-9 p-2 bg-white text-sm italic active:outline-none focus:outline-none"
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <div
+        *ngIf="
+          password && password.invalid && (password.dirty || password.touched)
+        "
+        class="text-red-500 italic text-sm"
+      >
+        <div *ngIf="password.errors?.['required']">Password is required.</div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="py-2 px-3 bg-cyan-500 text-white text-sm font-semibold rounded-md shadow-lg shadow-cyan-500/50 focus:outline-none"
+    >
+      Sign in
+    </button>
+  </div>
+</form>

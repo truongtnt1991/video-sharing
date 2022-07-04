@@ -24,9 +24,12 @@
   <ul class="pt-6">
     <li
       *ngFor="let menu of menus"
+      [routerLink]="[menu.url]"
       class="flex rounded-md px-2 py-3 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4"
     >
-      <img [src]="menu.imgSrc" class="w-6" />
+      <span class="material-symbols-outlined">
+        {{ menu.icon }}
+      </span>
       <span [ngClass]="{ hidden: !open }">
         {{ menu.title }}
       </span>
@@ -38,7 +41,9 @@
       *ngFor="let menu of accountMenus"
       class="flex rounded-md px-2 py-3 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4"
     >
-      <img [src]="menu.imgSrc" class="w-6" />
+      <span class="material-symbols-outlined">
+        {{ menu.icon }}
+      </span>
       <span [ngClass]="{ hidden: !open }">
         {{ menu.title }}
       </span>
@@ -47,6 +52,7 @@
   <div
     class="flex absolute bottom-0 left-0 p-2 items-center w-full"
     [ngClass]="{ 'justify-center': !open }"
+    *ngIf="isLogin"
   >
     <img class="rounded-full w-8" src="assets/images/user-avatar.png" />
     <span

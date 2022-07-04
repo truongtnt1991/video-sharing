@@ -10,6 +10,6 @@ export class DashboardService extends BaseBackendService {
   }
 
   getVideoSharing() {
-    return this.get<Video[]>('/video/getAll');
+    return this.get<Video>('/video/getAll');
   }
 }

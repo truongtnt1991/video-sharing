@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [SafePipe],
   imports: [],
-  exports: [],
+  exports: [SafePipe],
   providers: [],
 })
 export class ShareModule {}
