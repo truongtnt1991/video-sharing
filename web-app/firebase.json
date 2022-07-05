@@ -1,7 +1,7 @@
 {
   "hosting": {
-    "site": "video-sharing-demo",
     "public": "dist/web-app",
+    "site": "video-sharing-demo",
     "ignore": [
       "firebase.json",
       "**/.*",
