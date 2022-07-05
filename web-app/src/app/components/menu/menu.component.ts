@@ -58,13 +58,13 @@ export class MenuComponent implements OnInit {
 
     if (this.isLogin) {
       this.menus.push({
-        title: 'Share video',
+        title: 'Share a video',
         url: 'video-sharing',
         imgSrc: 'assets/images/sharing.ico',
         icon: 'share',
       });
       this.menus.push({
-        title: 'Shared video',
+        title: 'Shared videos',
         url: 'video-shared',
         imgSrc: 'assets/images/sharing.ico',
         icon: 'send',
