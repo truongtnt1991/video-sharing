@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "dist/web-app",
+    "site": "video-sharing-demo",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
