@@ -5,8 +5,6 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-require('./auth/passport');
-require('./models/index');
 
 const middlewares = require('./middlewares');
 const appRouter = require('./api/routes/app.route');
@@ -19,8 +17,7 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(helmet());
 const allowedDomains = [
-  'http://localhost:4200',
-  'https://video-sharing-demo.web.app',
+  'http://localhost:4200'
 ];
 app.use(
   cors({
